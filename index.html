@@ -294,26 +294,7 @@ function showPage(p, btn) {
   if (p==='settings') { renderSettings(); renderInstallSection(); }
 }
 
-function addDrink(type) {
-  const units = state.settings[type];
-  const now = new Date();
-  if (!state.session) { state.session = { startTime: now.toISOString(), drinks: [] }; document.getElementById('save-btn').style.display=''; }
-  state.session.drinks.push({ type, units, time: now.toISOString() });
-  toast('+'+units+' units');
-  render();
-}
-function endSession() {
-  if (!state.session || !state.session.drinks.length) return;
-  if (!confirm('Save this session?')) return;
-  state.session.endTime = state.session.drinks[state.session.drinks.length-1].time;
-  state.sessions.unshift(state.session);
-  state.session = null;
-  save();
-  document.getElementById('save-btn').style.display='none';
-  toast('Session saved');
-  render();
-}
-function deleteItem(i) {
+  function deleteItem(i) {
   if (!state.session) return;
   state.session.drinks.splice(i,1);
   if (!state.session.drinks.length) { state.session=null; document.getElementById('save-btn').style.display='none'; }
@@ -328,4 +309,68 @@ function render() {
   document.getElementById('stat-drinks').textContent=drinks.length;
   document.getElementById('stat-units').textContent=total.toFixed(1);
   document.getElementById('stat-dur').textContent=dur;
-  co
+  const status=document.getElementById('session-status');
+  if (state.session) status.innerHTML=`Active since <span>${fmt(new Date(state.session.startTime))}</span>`;
+  else status.textContent='No active session';
+  const list=document.getElementById('log-list');
+  if (!drinks.length) { list.innerHTML='<div class="log-empty">Tap a drink below to start</div>'; return; }
+  list.innerHTML=[...drinks].reverse().map((d,ri)=>{
+    const i=drinks.length-1-ri;
+    return `<div class="log-item"><div class="log-dot ${d.type}"></div><div class="log-type">${cap(d.type)}</div><div class="log-units">${d.units} units</div><div class="log-time">${fmt(new Date(d.time))}</div><button class="log-del" onclick="deleteItem(${i})">×</button></div>`;
+  }).join('');
+}
+
+function renderHistory() {
+  const s=state.sessions;
+  const total=s.reduce((a,sess)=>a+sess.drinks.reduce((b,d)=>b+d.units,0),0);
+  const avg=s.length?(total/s.length).toFixed(1):0;
+  const max=s.length?Math.max(...s.map(sess=>sess.drinks.reduce((a,d)=>a+d.units,0))).toFixed(1):0;
+  document.getElementById('summary-grid').innerHTML=`<div class="summary-card"><div class="val">${s.length}</div><div class="lbl">Sessions</div></div><div class="summary-card"><div class="val">${total.toFixed(1)}</div><div class="lbl">Total Units</div></div><div class="summary-card"><div class="val">${avg}</div><div class="lbl">Avg / Session</div></div><div class="summary-card"><div class="val">${max}</div><div class="lbl">Most in One Night</div></div>`;
+  if (!s.length) { document.getElementById('history-list').innerHTML='<div class="log-empty" style="padding:30px 16px">No sessions yet</div>'; return; }
+  document.getElementById('history-list').innerHTML=s.map((sess,idx)=>{
+    const units=sess.drinks.reduce((a,d)=>a+d.units,0);
+    const counts={};
+    sess.drinks.forEach(d=>counts[d.type]=(counts[d.type]||0)+1);
+    const pills=Object.entries(counts).map(([k,v])=>`<span class="pill">${v}× ${cap(k)}</span>`).join('');
+    const start=fmt(new Date(sess.startTime));
+    const end=sess.endTime?fmt(new Date(sess.endTime)):'';
+    return `<div class="session-item" onclick="showModal(${idx})"><div class="session-item-row"><span class="session-date">${fmtDate(new Date(sess.startTime))}</span><span class="session-units">${units.toFixed(1)} units</span></div><div class="session-meta">${start}${end?' – '+end:''}</div><div class="session-pills">${pills}</div></div>`;
+  }).join('');
+}
+
+function renderSettings() {
+  TYPES.forEach(t=>{ const el=document.getElementById('set-'+t); if(el) el.value=state.settings[t]; });
+  document.getElementById('data-count').textContent=state.sessions.length+' sessions stored';
+}
+function saveSettings() {
+  TYPES.forEach(t=>{ const el=document.getElementById('set-'+t); if(el) state.settings[t]=parseFloat(el.value)||1.0; });
+  save();
+}
+function applySettings() {}
+function clearAllData() {
+  if (!confirm('Delete all saved sessions?')) return;
+  state.sessions=[]; save(); renderHistory(); renderSettings(); toast('All data cleared');
+}
+function exportCSV() {
+  if (!state.sessions.length) { toast('No data to export'); return; }
+  let csv='Date,Type,Units,Time\n';
+  state.sessions.forEach(s=>{ const d=fmtDate(new Date(s.startTime)); s.drinks.forEach(dr=>{ csv+=`"${d}","${cap(dr.type)}",${dr.units},"${fmt(new Date(dr.time))}"\n`; }); });
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'})); a.download='drinks.csv'; a.click();
+  toast('CSV exported');
+}
+function showModal(idx) {
+  const sess=state.sessions[idx];
+  document.getElementById('modal-title').textContent=fmtDate(new Date(sess.startTime));
+  document.getElementById('modal-drinks').innerHTML=sess.drinks.map(d=>`<div class="modal-item"><div class="modal-dot" style="background:${COLORS[d.type]}"></div><div class="modal-info">${cap(d.type)} — ${d.units} units</div><div class="modal-time">${fmt(new Date(d.time))}</div></div>`).join('');
+  document.getElementById('modal').classList.add('open');
+}
+function closeModal(e) { if(e.target.id==='modal') document.getElementById('modal').classList.remove('open'); }
+function cap(s) { return s.charAt(0).toUpperCase()+s.slice(1); }
+function fmt(d) { return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
+function fmtDate(d) { return d.toLocaleDateString([],{weekday:'short',day:'numeric',month:'short',year:'numeric'}); }
+function toast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2000); }
+
+try { load(); } catch(e) { console.error(e); }
+</script>
+</body>
+</html>

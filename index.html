@@ -191,6 +191,7 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 <div class="toast" id="toast"></div>
 
 <script>
+var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzObkHz6qDetkWZVN1OiKuFaV6tDM8ioQivJkS4RMxKmHRoQd7rQH2rS1dYxrb-p7Dt/exec';
 var TYPES = ['beer','wine','cava','cocktail','other'];
 var COLORS = {beer:'var(--beer)',wine:'var(--wine)',cava:'var(--cava)',cocktail:'var(--cocktail)',other:'var(--other)'};
 var state = {
@@ -243,12 +244,35 @@ function endSession() {
   if (!state.session || !state.session.drinks.length) return;
   if (!confirm('Save this session?')) return;
   state.session.endTime = state.session.drinks[state.session.drinks.length-1].time;
+  state.session.session_id = 'sess_' + Date.now();
   state.sessions.unshift(state.session);
+  var sessionToSync = state.session;
   state.session = null;
   save();
   document.getElementById('save-btn').style.display = 'none';
-  showToast('Session saved');
+  showToast('Saving...');
+  syncToSheets(sessionToSync, function(ok) {
+    showToast(ok ? 'Saved to Google Sheets ✓' : 'Saved locally (sheets sync failed)');
+  });
   render();
+}
+
+function syncToSheets(sess, cb) {
+  try {
+    var payload = {
+      date: fmtDate(new Date(sess.startTime)),
+      session_id: sess.session_id,
+      drinks: sess.drinks.map(function(d) {
+        return { type: d.type, units: d.units, time: fmt(new Date(d.time)) };
+      })
+    };
+    fetch(SHEETS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function() { cb(true); }).catch(function() { cb(false); });
+  } catch(e) { cb(false); }
 }
 
 function deleteItem(i) {

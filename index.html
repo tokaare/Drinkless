@@ -256,7 +256,7 @@ function syncDrink(drink, sessionId, status) {
     'status=' + encodeURIComponent(status)
   ].join('&');
   var url = SHEETS_URL + '?' + params;
-  fetch(url, {mode:'no-cors'}).catch(function() {
+  fetch(url, {mode:'no-cors', redirect:'follow'}).catch(function() {
     queueForRetry(url);
   });
 }

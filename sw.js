@@ -1,6 +1,6 @@
 const CACHE = 'drinks-v1';
 const FILES = ['/', '/index.html', '/manifest.json'];
-const CACHE = 'drinks-v2'; // was v1, change to v2, v3 etc
+const CACHE = 'drinks-v3'; //
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(FILES)));
 });

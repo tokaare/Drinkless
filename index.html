@@ -20,7 +20,7 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
 body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
-.app{max-width:480px;margin:0 auto;width:100%;height:100%;display:flex;flex-direction:column;padding-bottom:calc(62px + env(safe-area-inset-bottom));}
+  .app{max-width:480px;margin:0 auto;width:100%;height:100%;display:flex;flex-direction:column;padding-bottom:calc(148px + env(safe-area-inset-bottom));}
 
 .nav{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
 .nav-btn{flex:1;padding:14px 4px;border:none;background:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:color .2s;}
@@ -54,11 +54,11 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .log-del{background:none;border:none;color:var(--muted2);font-size:20px;cursor:pointer;padding:0 0 0 8px;line-height:1;}
 
 .drink-bar{position:fixed;bottom:0;left:0;right:0;background:var(--bg);border-top:1px solid var(--border);padding:10px 12px;padding-bottom:calc(10px + env(safe-area-inset-bottom));z-index:50;}
-.drink-bar-inner{max-width:480px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-.drink-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 4px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:5px;}
-.drink-btn:active{background:var(--card2);transform:scale(0.96);}
-.drink-icon{width:22px;height:22px;}
-.drink-name{font-size:10px;font-weight:600;color:var(--muted);letter-spacing:.3px;text-transform:uppercase;}
+.drink-bar-inner{max-width:480px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.drink-btn{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 10px;cursor:pointer;text-align:center;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:12px;}
+.drink-btn:active{background:var(--card2);transform:scale(0.97);}
+.drink-icon{width:28px;height:28px;flex-shrink:0;}
+.drink-name{font-size:15px;font-weight:600;color:#ffffff;letter-spacing:.2px;}
 
 .section-head{padding:14px 16px 8px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0;}
 .export-btn{background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;}
@@ -139,7 +139,6 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
         <div class="setting-row"><div><div class="setting-label">Beer</div><div class="setting-sub">0.5L half litre</div></div><input class="units-input" type="number" id="set-beer" step="0.5" min="0.5" max="5" value="1.3" onchange="saveSettings()"></div>
         <div class="setting-row"><div><div class="setting-label">Wine</div><div class="setting-sub">175ml glass</div></div><input class="units-input" type="number" id="set-wine" step="0.5" min="0.5" max="5" value="2.0" onchange="saveSettings()"></div>
         <div class="setting-row"><div><div class="setting-label">Cava</div><div class="setting-sub">125ml flute</div></div><input class="units-input" type="number" id="set-cava" step="0.5" min="0.5" max="5" value="1.5" onchange="saveSettings()"></div>
-        <div class="setting-row"><div><div class="setting-label">Cocktail</div><div class="setting-sub">Standard cocktail</div></div><input class="units-input" type="number" id="set-cocktail" step="0.5" min="0.5" max="5" value="2.0" onchange="saveSettings()"></div>
         <div class="setting-row"><div><div class="setting-label">Other</div><div class="setting-sub">Custom drink</div></div><input class="units-input" type="number" id="set-other" step="0.5" min="0.5" max="5" value="1.0" onchange="saveSettings()"></div>
       </div>
       <div class="section-head" style="padding:0 0 10px">Data</div>
@@ -157,6 +156,10 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <div class="drink-bar">
   <div class="drink-bar-inner">
+    <button class="drink-btn" onclick="addDrink('cava')">
+      <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--cava)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 10a4 4 0 0 1-6 0L8 3z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/><circle cx="10" cy="6" r=".6" fill="var(--cava)"/><circle cx="14" cy="8" r=".6" fill="var(--cava)"/><circle cx="12" cy="5" r=".6" fill="var(--cava)"/></svg>
+      <span class="drink-name">Cava</span>
+    </button>
     <button class="drink-btn" onclick="addDrink('beer')">
       <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--beer)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h11l2 18H3L5 3z"/><line x1="5" y1="9" x2="18" y2="9"/></svg>
       <span class="drink-name">Beer</span>
@@ -165,16 +168,8 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
       <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--wine)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-2 7a5 5 0 0 1-6 0L7 3z"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="8" y1="21" x2="16" y2="21"/></svg>
       <span class="drink-name">Wine</span>
     </button>
-    <button class="drink-btn" onclick="addDrink('cava')">
-      <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--cava)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-1 10a4 4 0 0 1-6 0L8 3z"/><line x1="12" y1="17" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/><circle cx="10" cy="6" r=".6" fill="var(--cava)"/><circle cx="14" cy="8" r=".6" fill="var(--cava)"/><circle cx="12" cy="5" r=".6" fill="var(--cava)"/></svg>
-      <span class="drink-name">Cava</span>
-    </button>
-    <button class="drink-btn" onclick="addDrink('cocktail')">
-      <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--cocktail)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 0L12 13z"/><line x1="12" y1="13" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
-      <span class="drink-name">Cocktail</span>
-    </button>
     <button class="drink-btn" onclick="addDrink('other')">
-      <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--other)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="12"/><circle cx="12" cy="16" r=".8" fill="var(--other)"/></svg>
+      <svg class="drink-icon" viewBox="0 0 24 24" fill="none" stroke="var(--other)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 0L12 13z"/><line x1="12" y1="13" x2="12" y2="20"/><line x1="8" y1="20" x2="16" y2="20"/></svg>
       <span class="drink-name">Other</span>
     </button>
   </div>
@@ -192,16 +187,16 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 
 <script>
 var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzObkHz6qDetkWZVN1OiKuFaV6tDM8ioQivJkS4RMxKmHRoQd7rQH2rS1dYxrb-p7Dt/exec';
-var TYPES = ['beer','wine','cava','cocktail','other'];
-var COLORS = {beer:'var(--beer)',wine:'var(--wine)',cava:'var(--cava)',cocktail:'var(--cocktail)',other:'var(--other)'};
+var TYPES = ['beer','wine','cava','other'];
+var COLORS = {beer:'var(--beer)',wine:'var(--wine)',cava:'var(--cava)',other:'var(--other)'};
 var state = {
   session: null,
   sessions: [],
-  settings: {beer:1.3,wine:2.0,cava:1.5,cocktail:2.0,other:1.0}
+  settings: {beer:1.3,wine:2.0,cava:1.5,other:1.0}
 };
 
 function save() {
-  localStorage.setItem('dt', JSON.stringify({sessions:state.sessions,settings:state.settings}));
+  localStorage.setItem('dt', JSON.stringify({sessions:state.sessions, settings:state.settings, session:state.session}));
 }
 
 function load() {
@@ -211,8 +206,13 @@ function load() {
       var d = JSON.parse(raw);
       state.sessions = d.sessions || [];
       state.settings = Object.assign({}, state.settings, d.settings || {});
+      if (d.session) state.session = d.session;
     } catch(e) {}
   }
+  if (state.session && state.session.drinks.length) {
+    document.getElementById('save-btn').style.display = '';
+  }
+  flushRetryQueue();
   render();
 }
 
@@ -231,49 +231,75 @@ function addDrink(type) {
   var units = state.settings[type];
   var now = new Date();
   if (!state.session) {
-    state.session = {startTime:now.toISOString(), drinks:[]};
+    state.session = {
+      startTime: now.toISOString(),
+      session_id: 'sess_' + Date.now(),
+      drinks: []
+    };
     document.getElementById('save-btn').style.display = '';
   }
-  state.session.drinks.push({type:type, units:units, time:now.toISOString()});
+  var drink = {type:type, units:units, time:now.toISOString()};
+  state.session.drinks.push(drink);
   save();
+  syncDrink(drink, state.session.session_id, 'live');
   showToast('+'+units+' units');
   render();
+}
+
+function syncDrink(drink, sessionId, status) {
+  var params = [
+    'date='   + encodeURIComponent(fmtDate(new Date(drink.time))),
+    'type='   + encodeURIComponent(drink.type),
+    'units='  + encodeURIComponent(drink.units),
+    'time='   + encodeURIComponent(fmt(new Date(drink.time))),
+    'session_id=' + encodeURIComponent(sessionId),
+    'status=' + encodeURIComponent(status)
+  ].join('&');
+  var url = SHEETS_URL + '?' + params;
+  fetch(url, {mode:'no-cors'}).catch(function() {
+    queueForRetry(url);
+  });
+}
+
+function queueForRetry(url) {
+  try {
+    var q = JSON.parse(localStorage.getItem('dt_queue') || '[]');
+    q.push(url);
+    localStorage.setItem('dt_queue', JSON.stringify(q));
+  } catch(e) {}
+}
+
+function flushRetryQueue() {
+  try {
+    var q = JSON.parse(localStorage.getItem('dt_queue') || '[]');
+    if (!q.length) return;
+    localStorage.setItem('dt_queue', '[]');
+    for (var i = 0; i < q.length; i++) {
+      fetch(q[i], {mode:'no-cors'}).catch(function(){});
+    }
+  } catch(e) {}
 }
 
 function endSession() {
   if (!state.session || !state.session.drinks.length) return;
   if (!confirm('Save this session?')) return;
   state.session.endTime = state.session.drinks[state.session.drinks.length-1].time;
-  state.session.session_id = 'sess_' + Date.now();
   state.sessions.unshift(state.session);
-  var sessionToSync = state.session;
+  var sessionId = state.session.session_id;
   state.session = null;
   save();
   document.getElementById('save-btn').style.display = 'none';
-  showToast('Saving...');
-  syncToSheets(sessionToSync, function(ok) {
-    showToast(ok ? 'Saved to Google Sheets ✓' : 'Saved locally (sheets sync failed)');
-  });
+  syncSessionComplete(sessionId);
+  showToast('Session saved');
   render();
 }
 
-function syncToSheets(sess, cb) {
-  try {
-    var payload = {
-      date: fmtDate(new Date(sess.startTime)),
-      session_id: sess.session_id,
-      drinks: sess.drinks.map(function(d) {
-        return { type: d.type, units: d.units, time: fmt(new Date(d.time)) };
-      })
-    };
-    fetch(SHEETS_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function() { cb(true); }).catch(function() { cb(false); });
-  } catch(e) { cb(false); }
+function syncSessionComplete(sessionId) {
+  var url = SHEETS_URL + '?session_id=' + encodeURIComponent(sessionId) + '&status=complete';
+  fetch(url, {mode:'no-cors'}).catch(function(){});
 }
+
+function syncToSheets(sess, cb) { cb(true); }
 
 function deleteItem(i) {
   if (!state.session) return;

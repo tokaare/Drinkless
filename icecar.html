@@ -8,7 +8,9 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 20px; font-size: 13px; }
   h1 { font-size: 19px; font-weight: 700; margin-bottom: 3px; }
+  h2 { font-size: 16px; font-weight: 700; margin: 28px 0 12px; }
   .subtitle { font-size: 12px; color: #666; margin-bottom: 16px; }
+  .live-tag { display: inline-block; background: #dcfce7; color: #166534; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 8px; vertical-align: middle; }
   .badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 10px; font-weight: 700; white-space: nowrap; margin-top: 4px; }
   .badge-rec   { background: #d1fae5; color: #065f46; }
   .badge-cool  { background: #dbeafe; color: #1e40af; }
@@ -26,399 +28,580 @@
   tr:hover td { background: #fafafa; }
   .row-hl td { background: #fffbeb !important; }
   .row-hl:hover td { background: #fef3c7 !important; }
+  .row-dim { opacity: 0.55; }
 
   .car-name { font-weight: 700; font-size: 13px; }
   .car-sub { font-size: 11px; color: #888; margin-top: 1px; }
-  .car-img { width: 100%; height: 72px; object-fit: cover; border-radius: 5px; margin-bottom: 6px; background: #eee; display: block; }
-  .car-img-placeholder { width: 100%; height: 72px; border-radius: 5px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 6px; }
+  .car-img { width: 100%; height: 68px; object-fit: cover; border-radius: 5px; margin-bottom: 5px; background: #eee; display: block; }
 
-  .pro { color: #065f46; }
+  .pro { color: #065f46; font-size: 12px; }
   .pro::before { content: "✓ "; font-weight: 700; }
-  .con { color: #991b1b; }
+  .con { color: #991b1b; font-size: 12px; }
   .con::before { content: "✗ "; font-weight: 700; }
   ul { list-style: none; }
-  li { margin-bottom: 2px; font-size: 12px; }
+  li { margin-bottom: 2px; }
 
-  .price-main { font-weight: 700; font-size: 13px; }
-  .price-sub { font-size: 11px; color: #777; margin-top: 1px; }
+  .price-na { font-size: 11px; color: #aaa; font-style: italic; }
 
-  .pp-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 6px 8px; margin-top: 4px; }
-  .pp-main { font-weight: 700; font-size: 14px; color: #065f46; }
-  .pp-label { font-size: 10px; color: #166534; margin-bottom: 2px; }
-  .pp-detail { font-size: 10px; color: #555; margin-top: 3px; }
+  /* Live price box */
+  .lp { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 7px 9px; }
+  .lp-main { font-weight: 800; font-size: 17px; color: #065f46; }
+  .lp-label { font-size: 10px; color: #166534; font-weight: 600; margin-bottom: 2px; }
+  .lp-sub { font-size: 10px; color: #555; margin-top: 3px; line-height: 1.4; }
+  .lp-warn { background: #fef3c7; border: 1px solid #fde68a; border-radius: 6px; padding: 7px 9px; }
+  .lp-warn .lp-main { color: #92400e; }
+  .lp-warn .lp-label { color: #78350f; }
 
-  .pp-box-skip { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; margin-top: 4px; }
-
-  .froad { text-align: center; font-size: 15px; }
-  .froad-label { font-size: 10px; color: #888; display: block; margin-top: 2px; }
+  /* per person box */
+  .pp { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 6px 8px; margin-top: 5px; }
+  .pp-main { font-weight: 700; font-size: 13px; color: #1d4ed8; }
+  .pp-label { font-size: 10px; color: #1e40af; margin-bottom: 1px; }
 
   .section-hdr td { background: #f3f4f6 !important; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: #6b7280; padding: 5px 10px; }
 
-  .verdict { margin-top: 18px; background: white; border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
-  .verdict h2 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-  .vi { display: flex; gap: 10px; margin-bottom: 7px; font-size: 12px; line-height: 1.5; }
-  .vl { font-weight: 700; min-width: 130px; color: #555; flex-shrink: 0; }
-  .footer-note { margin-top: 12px; font-size: 10px; color: #aaa; }
-
+  .froad { text-align: center; font-size: 15px; }
+  .froad span { font-size: 10px; color: #888; display: block; margin-top: 2px; }
   .provider-tag { font-size: 10px; color: #fff; background: #374151; padding: 1px 6px; border-radius: 8px; margin-top: 3px; display: inline-block; }
+
+  /* Insurance table */
+  .ins-table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .ins-table thead { background: #111; color: white; }
+  .ins-table th { padding: 10px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; text-align: left; }
+  .ins-table th.gold-h { background: #92400e; }
+  .ins-table th.plat-h { background: #1e3a5f; }
+  .ins-table td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; }
+  .ins-table tr:last-child td { border-bottom: none; }
+  .ins-table .cat-row td { background: #f8f8f8; font-weight: 700; font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 0.5px; padding: 5px 12px; }
+  .ins-table .gold-col { background: #fffbeb; }
+  .ins-table .plat-col { background: #eff6ff; }
+  .chk { color: #16a34a; font-size: 15px; }
+  .cross { color: #dc2626; font-size: 15px; }
+  .exc { font-size: 11px; color: #dc2626; font-weight: 600; }
+  .zero { font-size: 11px; color: #16a34a; font-weight: 700; }
+
+  .price-row td { background: #111 !important; color: white; font-weight: 700; font-size: 13px; }
+  .price-row .gold-col { background: #92400e !important; }
+  .price-row .plat-col { background: #1e3a5f !important; }
+
+  .verdict { margin-top: 18px; background: white; border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .verdict h3 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .vi { display: flex; gap: 10px; margin-bottom: 7px; font-size: 12px; line-height: 1.5; }
+  .vl { font-weight: 700; min-width: 140px; color: #555; flex-shrink: 0; }
+  .footer-note { margin-top: 12px; font-size: 10px; color: #aaa; }
 </style>
 </head>
 <body>
 
-<h1>🇮🇸 Iceland Car Rental – September 2026</h1>
-<p class="subtitle">4 people (male, bags) · F-road capable · <strong>4 days TUE 1/9 – FRI 4/9</strong> · KEF pickup → Reykjavík drop-off · ~850 km total (incl. F225/F208 to Landmannalaugar)</p>
+<h1>🇮🇸 Iceland Car Rental – Sep 1–4, 2026 <span class="live-tag">✓ LIVE PRICES</span></h1>
+<p class="subtitle">4 people · KEF pickup → Reykjavík City Office drop-off · 3 days (noon to noon) · Landmannalaugar F-road itinerary</p>
 
+<!-- ===================== MAIN CAR TABLE ===================== -->
 <table>
   <thead>
     <tr>
-      <th style="width:15%">Car</th>
-      <th style="width:12%">Provider</th>
-      <th style="width:12%">Rental<br><span style="font-weight:400;font-size:10px">4 days, excl. ins.</span></th>
-      <th style="width:10%">Fuel est.<br><span style="font-weight:400;font-size:10px">~850 km</span></th>
-      <th style="width:13%">Cost/person<br><span style="font-weight:400;font-size:10px">rental+fuel ÷ 4</span></th>
+      <th style="width:14%">Car</th>
+      <th style="width:11%">Provider</th>
+      <th style="width:14%">Base rental<br><span style="font-weight:400;font-size:10px">live · 3 days</span></th>
+      <th style="width:13%">Fuel est.<br><span style="font-weight:400;font-size:10px">~850 km</span></th>
+      <th style="width:14%">Cost/person<br><span style="font-weight:400;font-size:10px">base+fuel ÷ 4</span></th>
       <th style="width:7%">F-road</th>
-      <th style="width:16%">Pros</th>
-      <th style="width:15%">Cons</th>
+      <th style="width:14%">Pros</th>
+      <th style="width:13%">Cons</th>
     </tr>
   </thead>
   <tbody>
 
-    <!-- BUDGET / PRACTICAL -->
+    <!-- BUDGET -->
     <tr class="section-hdr"><td colspan="8">💚 BUDGET / PRACTICAL TIER</td></tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2024_Dacia_Duster_TCe_130_front.jpg/320px-2024_Dacia_Duster_TCe_130_front.jpg" alt="Dacia Duster" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2024_Dacia_Duster_TCe_130_front.jpg/320px-2024_Dacia_Duster_TCe_130_front.jpg" onerror="this.style.display='none'" alt="Dacia Duster">
         <div class="car-name">Dacia Duster 4WD</div>
-        <div class="car-sub">2022–2026 model</div>
+        <div class="car-sub">2024 · Manual · AWD</div>
         <span class="badge badge-val">Best value</span>
       </td>
+      <td><strong>Go Car</strong><br><span class="provider-tag">Also: Lotus</span></td>
       <td>
-        <strong>Lotus</strong><br>
-        <span class="car-sub">LOTUSD5 code</span><br>
-        <span class="provider-tag">Also: Go Car</span>
-      </td>
-      <td>
-        <div class="price-main">~200–260 €</div>
-        <div class="price-sub">≈50–65€/day<br>≈530–690 SEK/day</div>
-      </td>
-      <td>
-        <div class="price-main">~70 €</div>
-        <div class="price-sub">7–8L/100km<br>diesel/petrol</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~680–830 SEK</div>
-          <div class="pp-detail">(200–260€ rental + 70€ fuel) ÷ 4 × 11</div>
+        <div class="lp">
+          <div class="lp-label">LIVE – GO CAR</div>
+          <div class="lp-main">$350</div>
+          <div class="lp-sub">~3,640 SEK · ~318€<br>+1-way fee TBC</div>
         </div>
       </td>
-      <td class="froad">⚠️<span class="froad-label">Easy–mod</span></td>
+      <td><strong>~65€</strong><br><span class="car-sub">7–8L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">BASE + FUEL / PERSON</div>
+          <div class="pp-main">~$104 / ~1,080 SEK</div>
+        </div>
+        <div class="lp-sub" style="margin-top:4px">Excl. insurance</div>
+      </td>
+      <td class="froad">⚠️<span>Easy–mod</span></td>
       <td><ul>
-        <li class="pro">Cheapest F-road capable</li>
-        <li class="pro">23cm clearance</li>
-        <li class="pro">Lotus Platinum covers river crossing</li>
-        <li class="pro">Unlimited mileage</li>
-        <li class="pro">Tried & tested on Landmannalaugar</li>
+        <li class="pro">Cheapest F-road option</li>
+        <li class="pro">Proven on Landmannalaugar</li>
+        <li class="pro">23cm ground clearance</li>
+        <li class="pro">Lotus Platinum covers rivers</li>
       </ul></td>
       <td><ul>
-        <li class="con">Tight for 4+bags</li>
+        <li class="con">Tight for 4 + bags</li>
+        <li class="con">Manual only</li>
         <li class="con">Zero cool factor</li>
-        <li class="con">Manual only at most providers</li>
-        <li class="con">Uncomfortable on longer drives</li>
       </ul></td>
     </tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg/320px-2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg" alt="Subaru Forester" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg/320px-2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg" onerror="this.style.display='none'" alt="Subaru Forester">
         <div class="car-name">Subaru Forester 4WD</div>
-        <div class="car-sub">Auto AWD</div>
-        <span class="badge badge-new">Also at Lotus</span>
+        <div class="car-sub">Auto · AWD</div>
+        <span class="badge badge-new">Book direct</span>
       </td>
+      <td><strong>Lotus</strong><br><span class="car-sub">LOTUSD5 code</span></td>
       <td>
-        <strong>Lotus</strong><br>
-        <span class="car-sub">LOTUSD5 code</span><br>
-        <span class="provider-tag">Go Car too</span>
-      </td>
-      <td>
-        <div class="price-main">~240–300 €</div>
-        <div class="price-sub">≈60–75€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~80 €</div>
-        <div class="price-sub">9–10L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~880–1 050 SEK</div>
-          <div class="pp-detail">(240–300€ rental + 80€ fuel) ÷ 4 × 11</div>
+        <div class="lp-warn">
+          <div class="lp-label">ESTIMATED</div>
+          <div class="lp-main">~$400–450</div>
+          <div class="lp-sub">Not on Go Car · book via Lotus direct</div>
         </div>
       </td>
-      <td class="froad">✅<span class="froad-label">Mod F-road</span></td>
+      <td><strong>~75€</strong><br><span class="car-sub">9–10L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">EST. / PERSON</div>
+          <div class="pp-main">~$120 / ~1,250 SEK</div>
+        </div>
+      </td>
+      <td class="froad">✅<span>Mod F-road</span></td>
       <td><ul>
-        <li class="pro">Automatic – easy highway driving</li>
-        <li class="pro">Roomier than Duster</li>
-        <li class="pro">Comfortable for long stretches</li>
-        <li class="pro">AWD system well-regarded</li>
+        <li class="pro">Automatic – easier driving</li>
+        <li class="pro">More room than Duster</li>
+        <li class="pro">Good AWD system</li>
       </ul></td>
       <td><ul>
-        <li class="con">Ground clearance varies by model year – verify with Lotus</li>
-        <li class="con">Not as capable as Hilux for river F-roads</li>
+        <li class="con">Verify clearance with Lotus</li>
         <li class="con">Still not exciting visually</li>
       </ul></td>
     </tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-17%29_01.jpg/320px-2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-21%29_01.jpg" alt="Toyota RAV4" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-17%29_01.jpg/320px-2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-21%29_01.jpg" onerror="this.style.display='none'" alt="Toyota RAV4">
         <div class="car-name">Toyota RAV4 4WD</div>
-        <div class="car-sub">Petrol / Hybrid</div>
+        <div class="car-sub">Auto · Hybrid option</div>
         <span class="badge badge-new">Blue Car fleet</span>
       </td>
+      <td><strong>Blue Car</strong><br><span class="car-sub">300m from KEF</span></td>
       <td>
-        <strong>Blue Car</strong><br>
-        <span class="car-sub">300m from KEF</span><br>
-        <span class="provider-tag">Also: Lotus, Go Car</span>
-      </td>
-      <td>
-        <div class="price-main">~270–340 €</div>
-        <div class="price-sub">≈68–85€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~80–90 €</div>
-        <div class="price-sub">8–9L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~980–1 180 SEK</div>
-          <div class="pp-detail">(270–340€ rental + 85€ fuel) ÷ 4 × 11</div>
+        <div class="lp-warn">
+          <div class="lp-label">ESTIMATED</div>
+          <div class="lp-main">~$450–550</div>
+          <div class="lp-sub">Not verified live · check bluecarrental.is</div>
         </div>
       </td>
-      <td class="froad">✅<span class="froad-label">Mod F-road</span></td>
+      <td><strong>~80€</strong><br><span class="car-sub">8–9L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">EST. / PERSON</div>
+          <div class="pp-main">~$135 / ~1,400 SEK</div>
+        </div>
+      </td>
+      <td class="froad">✅<span>Mod F-road</span></td>
       <td><ul>
-        <li class="pro">Reliable & well-known</li>
         <li class="pro">Good space for 4+bags</li>
         <li class="pro">Keybox pickup at Blue (zero wait)</li>
-        <li class="pro">Hybrid option cuts fuel cost</li>
+        <li class="pro">Reliable & well-known</li>
       </ul></td>
       <td><ul>
         <li class="con">Lower clearance than Duster</li>
         <li class="con">No visual character</li>
-        <li class="con">Not for serious river crossings</li>
       </ul></td>
     </tr>
 
     <!-- SWEET SPOT -->
-    <tr class="section-hdr"><td colspan="8">🔥 SWEET SPOT TIER – best capability + character</td></tr>
+    <tr class="section-hdr"><td colspan="8">🔥 SWEET SPOT – capability + character</td></tr>
 
     <tr class="row-hl">
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg/320px-2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg" alt="Jeep Wrangler Rubicon" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg/320px-2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg" onerror="this.style.display='none'" alt="Jeep Wrangler">
         <div class="car-name">Jeep Wrangler Rubicon</div>
-        <div class="car-sub">4-door JL / JLU</div>
+        <div class="car-sub">2022–25 · Auto · 4WD · Hybrid</div>
         <span class="badge badge-cool">🔥 Instagram pick</span>
         <span class="badge badge-rec">Recommended</span>
       </td>
+      <td><strong>Go Car Rental</strong><br><span class="car-sub">Reykjavík drop-off ✅</span><br><span class="provider-tag">Also: Geysir</span></td>
       <td>
-        <strong>Go Car Rental</strong><br>
-        <span class="car-sub">Shuttle from KEF</span><br>
-        <span class="provider-tag">Also: Geysir, GoCampers</span>
-      </td>
-      <td>
-        <div class="price-main">~480–620 €</div>
-        <div class="price-sub">≈120–155€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~115–130 €</div>
-        <div class="price-sub">12–14L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~1 640–2 090 SEK</div>
-          <div class="pp-detail">(480–620€ rental + 122€ fuel) ÷ 4 × 11</div>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – GO CAR</div>
+          <div class="lp-main">$981</div>
+          <div class="lp-sub">~10,200 SEK · ~895€<br>incl. 1-way fee ($58)<br>+ Gold ins. = $1,125<br>+ Platinum ins. = $1,177</div>
         </div>
       </td>
-      <td class="froad">✅✅<span class="froad-label">Highlands OK</span></td>
+      <td><strong>~110€</strong><br><span class="car-sub">375hp hybrid<br>~570km range</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">GOLD (fully insured) / PERSON</div>
+          <div class="pp-main">$281 / ~2,930 SEK</div>
+        </div>
+        <div class="pp" style="margin-top:4px; background:#eff6ff; border-color:#bfdbfe;">
+          <div class="pp-label" style="color:#1e40af">PLATINUM / PERSON</div>
+          <div class="pp-main" style="color:#1d4ed8">$294 / ~3,060 SEK</div>
+        </div>
+      </td>
+      <td class="froad">✅✅<span>Highlands OK</span></td>
       <td><ul>
-        <li class="pro">Iconic look, great for Iceland pics</li>
-        <li class="pro">High clearance, serious 4WD</li>
-        <li class="pro">Handles F225/F208 confidently</li>
-        <li class="pro">Fun to drive, memorable</li>
-        <li class="pro">Fits 4 adults (4-door version)</li>
+        <li class="pro">Iconic look, great Iceland photos</li>
+        <li class="pro">High clearance, serious 4WD hi/lo</li>
+        <li class="pro">F225/F208 with confidence</li>
+        <li class="pro">375hp hybrid engine</li>
+        <li class="pro">Built-in GPS, heated seats</li>
+        <li class="pro">5 pax + 5 bags confirmed</li>
       </ul></td>
       <td><ul>
-        <li class="con">Thirsty engine</li>
-        <li class="con">Stiff highway ride on long stretches</li>
-        <li class="con">Tight boot — consider roof bag</li>
-        <li class="con">Verify F-road + river insurance explicitly</li>
+        <li class="con">Most expensive in class</li>
+        <li class="con">Stiff highway ride</li>
+        <li class="con">Age 23+ required</li>
+        <li class="con">No river crossing ins. on Gold</li>
       </ul></td>
     </tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg/320px-2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg" alt="Toyota Hilux" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg/320px-2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg" onerror="this.style.display='none'" alt="Toyota Hilux">
         <div class="car-name">Toyota Hilux</div>
-        <div class="car-sub">Double Cab 4WD pickup</div>
+        <div class="car-sub">2025 · Manual · 4WD · Double Cab</div>
         <span class="badge badge-safe">Workhorse pick</span>
       </td>
+      <td><strong>MyCar</strong><br><span class="car-sub">via Northbound</span><br><span class="provider-tag">Also: Lotus</span></td>
       <td>
-        <strong>Lotus</strong><br>
-        <span class="car-sub">LOTUSD5 code</span><br>
-        <span class="provider-tag">Also: MyCar</span>
-      </td>
-      <td>
-        <div class="price-main">~500–660 €</div>
-        <div class="price-sub">≈125–165€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~100–115 €</div>
-        <div class="price-sub">11–12L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~1 650–2 130 SEK</div>
-          <div class="pp-detail">(500–660€ rental + 107€ fuel) ÷ 4 × 11</div>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – NORTHBOUND</div>
+          <div class="lp-main">SEK 9,111</div>
+          <div class="lp-sub">~$876 · ~800€<br>5% off applied<br>CDW included</div>
         </div>
       </td>
-      <td class="froad">✅✅<span class="froad-label">Full F-road</span></td>
+      <td><strong>~100€</strong><br><span class="car-sub">11–12L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">LIVE PRICE / PERSON</div>
+          <div class="pp-main">~$240 / ~2,490 SEK</div>
+        </div>
+        <div class="lp-sub" style="margin-top:4px">Excl. full ins. upgrade</div>
+      </td>
+      <td class="froad">✅✅<span>Full F-road</span></td>
       <td><ul>
-        <li class="pro">Excellent ground clearance</li>
-        <li class="pro">Legendary reliability for highlands</li>
-        <li class="pro">Great for Landmannalaugar F-roads</li>
-        <li class="pro">Pickup bed = huge luggage space</li>
-        <li class="pro">Looks rugged and purposeful</li>
+        <li class="pro">Guaranteed model (exact car)</li>
+        <li class="pro">8 large bags — most luggage room</li>
+        <li class="pro">Excellent highlands capability</li>
+        <li class="pro">CDW already included</li>
+        <li class="pro">MyCar Toyota service network</li>
       </ul></td>
       <td><ul>
-        <li class="con">Pickup bed = bags get wet in rain</li>
-        <li class="con">Ride quality rougher than Land Cruiser</li>
-        <li class="con">Not as glamorous as Wrangler</li>
+        <li class="con">Manual only</li>
+        <li class="con">Pickup bed = bags get wet</li>
+        <li class="con">Less glamorous than Wrangler</li>
       </ul></td>
     </tr>
 
     <!-- PREMIUM -->
-    <tr class="section-hdr"><td colspan="8">💎 PREMIUM TIER – comfort + serious capability</td></tr>
+    <tr class="section-hdr"><td colspan="8">💎 PREMIUM TIER</td></tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg/320px-2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg" alt="Toyota Land Cruiser" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg/320px-2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg" onerror="this.style.display='none'" alt="Toyota Land Cruiser">
         <div class="car-name">Toyota Land Cruiser</div>
-        <div class="car-sub">LC150 / LC250 · 5–7 seat</div>
+        <div class="car-sub">2025 · Auto · 4WD · 5 seats</div>
         <span class="badge badge-safe">Safest highlands bet</span>
       </td>
+      <td><strong>Go Car</strong><br><span class="car-sub">or MyCar via Northbound</span></td>
       <td>
-        <strong>Blue Car</strong><br>
-        <span class="car-sub">LC250 in fleet</span><br>
-        <span class="provider-tag">Also: MyCar, Lotus</span>
-      </td>
-      <td>
-        <div class="price-main">~560–760 €</div>
-        <div class="price-sub">≈140–190€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~105–120 €</div>
-        <div class="price-sub">11–13L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~1 830–2 420 SEK</div>
-          <div class="pp-detail">(560–760€ rental + 112€ fuel) ÷ 4 × 11</div>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – GO CAR</div>
+          <div class="lp-main">$908</div>
+          <div class="lp-sub">~9,440 SEK · ~828€<br>MyCar (Northbound):<br>SEK 9,294</div>
         </div>
       </td>
-      <td class="froad">✅✅✅<span class="froad-label">Any F-road</span></td>
+      <td><strong>~105€</strong><br><span class="car-sub">11–13L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">LIVE PRICE / PERSON</div>
+          <div class="pp-main">~$248 / ~2,580 SEK</div>
+        </div>
+        <div class="lp-sub" style="margin-top:4px">Excl. full ins. upgrade</div>
+      </td>
+      <td class="froad">✅✅✅<span>Any F-road</span></td>
       <td><ul>
-        <li class="pro">Most comfortable for 4 + all bags</li>
         <li class="pro">Best highlands performance</li>
-        <li class="pro">Smooth on both highway + F-road</li>
-        <li class="pro">Blue Car LC250 in 2026 fleet</li>
+        <li class="pro">Roomiest + most comfortable</li>
+        <li class="pro">Smooth on highway + F-road</li>
+        <li class="pro">Two live sources to compare</li>
       </ul></td>
       <td><ul>
-        <li class="con">Looks like every tourist in Iceland</li>
-        <li class="con">Priciest in this tier</li>
-        <li class="con">Overkill for your F-road level</li>
+        <li class="con">Looks like every tourist</li>
+        <li class="con">Slightly overkill for F225/F208</li>
       </ul></td>
     </tr>
 
     <tr>
       <td>
-        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg/320px-2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg" alt="Land Rover Defender" onerror="this.style.display='none'">
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg/320px-2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg" onerror="this.style.display='none'" alt="Land Rover Defender">
         <div class="car-name">Land Rover Defender 110</div>
-        <div class="car-sub">D240 / D300 · 5 seat</div>
+        <div class="car-sub">Auto · 4WD · 5 seats</div>
         <span class="badge badge-prem">Premium cool</span>
       </td>
+      <td><strong>Go Car</strong><br><span class="car-sub">In Go Car fleet</span></td>
       <td>
-        <strong>Blue Car</strong><br>
-        <span class="car-sub">In 2026 luxury fleet</span><br>
-        <span class="provider-tag">Also: ISAK 4×4</span>
-      </td>
-      <td>
-        <div class="price-main">~660–900 €</div>
-        <div class="price-sub">≈165–225€/day</div>
-      </td>
-      <td>
-        <div class="price-main">~105–120 €</div>
-        <div class="price-sub">11–13L/100km</div>
-      </td>
-      <td>
-        <div class="pp-box">
-          <div class="pp-label">EST. TOTAL / PERSON</div>
-          <div class="pp-main">~2 120–2 810 SEK</div>
-          <div class="pp-detail">(660–900€ rental + 112€ fuel) ÷ 4 × 11</div>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – GO CAR</div>
+          <div class="lp-main">$1,073</div>
+          <div class="lp-sub">~11,160 SEK · ~979€<br>incl. 1-way fee</div>
         </div>
       </td>
-      <td class="froad">✅✅✅<span class="froad-label">Any F-road</span></td>
+      <td><strong>~105€</strong><br><span class="car-sub">11–13L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">LIVE PRICE / PERSON</div>
+          <div class="pp-main">~$295 / ~3,070 SEK</div>
+        </div>
+        <div class="lp-sub" style="margin-top:4px">Excl. full ins. upgrade</div>
+      </td>
+      <td class="froad">✅✅✅<span>Any F-road</span></td>
       <td><ul>
         <li class="pro">Best looking premium 4x4</li>
+        <li class="pro">Great interior + tech</li>
         <li class="pro">Serious capability + comfort</li>
-        <li class="pro">Great interior space + tech</li>
-        <li class="pro">Distinctive look on the road</li>
       </ul></td>
       <td><ul>
-        <li class="con">Most expensive option</li>
-        <li class="con">Reliability concerns on old models (newer fleet helps)</li>
-        <li class="con">Big price jump vs Wrangler</li>
+        <li class="con">Most expensive</li>
+        <li class="con">Insurance not yet confirmed for F-roads at Go Car</li>
+      </ul></td>
+    </tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2022_Volvo_XC90_B5_AWD_facelift%2C_front_8.2.22.jpg/320px-2022_Volvo_XC90_B5_AWD_facelift%2C_front_8.2.22.jpg" onerror="this.style.display='none'" alt="Volvo XC90">
+        <div class="car-name">Volvo XC90</div>
+        <div class="car-sub">2025 · Auto · AWD · 7 seats</div>
+        <span class="badge badge-new">New from search</span>
+      </td>
+      <td><strong>Saga Car</strong><br><span class="car-sub">via Northbound</span></td>
+      <td>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – NORTHBOUND</div>
+          <div class="lp-main">SEK 6,806</div>
+          <div class="lp-sub">~$654 · ~597€<br>CDW/TPL/TP included<br>F-road approved ✅</div>
+        </div>
+      </td>
+      <td><strong>~100€</strong><br><span class="car-sub">10–12L/100km</span></td>
+      <td>
+        <div class="pp">
+          <div class="pp-label">LIVE PRICE / PERSON</div>
+          <div class="pp-main">~$188 / ~1,960 SEK</div>
+        </div>
+        <div class="lp-sub" style="margin-top:4px">CDW/TPL/TP already in price</div>
+      </td>
+      <td class="froad">✅✅<span>F-road OK</span></td>
+      <td><ul>
+        <li class="pro">Cheapest live premium price</li>
+        <li class="pro">7 seats — most spacious</li>
+        <li class="pro">CDW/TPL/TP already included</li>
+        <li class="pro">Guaranteed model</li>
+        <li class="pro">Luxury feel, comfortable</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">AWD not true 4WD</li>
+        <li class="con">Less rugged on deep F-roads</li>
+        <li class="con">Drop-off 39.9km from Reykjavík office</li>
       </ul></td>
     </tr>
 
     <!-- SKIP -->
-    <tr class="section-hdr"><td colspan="8">🚫 SKIP – not suitable for your trip</td></tr>
+    <tr class="section-hdr"><td colspan="8">🚫 SKIP – not suitable for 4 people</td></tr>
 
-    <tr style="opacity:0.6">
+    <tr class="row-dim">
       <td>
-        <div class="car-img-placeholder">🚙</div>
-        <div class="car-name">Suzuki Jimny</div>
-        <span class="badge badge-skip">Skip – too small</span>
+        <div class="car-name">Suzuki Jimny (manual)</div>
+        <div class="car-sub">4WD · 2 pax · 3 bags</div>
+        <span class="badge badge-skip">Too small</span>
       </td>
-      <td>Various</td>
-      <td><div class="price-main">~160–200 €</div></td>
-      <td><div class="price-main">~55 €</div></td>
+      <td>Go Car</td>
       <td>
-        <div class="pp-box-skip">
-          <div class="pp-detail" style="font-weight:700">N/A – 4 adults + bags won't fit</div>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – GO CAR</div>
+          <div class="lp-main">$350</div>
         </div>
       </td>
-      <td class="froad">⚠️<span class="froad-label">Risky</span></td>
-      <td><ul><li class="pro">Cheap</li></ul></td>
-      <td><ul><li class="con">4 adults + bags: physically impossible</li><li class="con">Not safe on F225 river sections</li></ul></td>
+      <td>~50€</td>
+      <td><span style="font-size:11px;color:#aaa">N/A — 2 pax max</span></td>
+      <td class="froad">⚠️<span>Risky</span></td>
+      <td><ul><li class="pro">Cheapest 4WD</li></ul></td>
+      <td><ul><li class="con">Only 2 pax / 3 bags — 4 adults impossible</li></ul></td>
+    </tr>
+
+    <tr class="row-dim">
+      <td>
+        <div class="car-name">Suzuki Jimny (auto)</div>
+        <div class="car-sub">4WD · 4 pax · 2 bags</div>
+        <span class="badge badge-skip">Too small</span>
+      </td>
+      <td>Go Car</td>
+      <td>
+        <div class="lp">
+          <div class="lp-label">✓ LIVE – GO CAR</div>
+          <div class="lp-main">$559</div>
+        </div>
+      </td>
+      <td>~50€</td>
+      <td><span style="font-size:11px;color:#aaa">N/A — only 2 bags for 4 people</span></td>
+      <td class="froad">⚠️<span>Risky</span></td>
+      <td><ul><li class="pro">Automatic</li><li class="pro">4 pax technically</li></ul></td>
+      <td><ul><li class="con">Only 2 bags — nowhere to put luggage</li><li class="con">River crossings dangerous</li></ul></td>
     </tr>
 
   </tbody>
 </table>
 
+<!-- ===================== INSURANCE TABLE ===================== -->
+<h2>🛡️ Go Car Rental – Insurance Comparison (Jeep Wrangler, 3 days)</h2>
+<p class="subtitle" style="margin-bottom:12px">Live from Go Car checkout · Sep 1–4 · all prices in USD</p>
+
+<table class="ins-table">
+  <thead>
+    <tr>
+      <th style="width:40%">Coverage</th>
+      <th style="width:20%">Silver<br><span style="font-weight:400">$0 / day — included</span></th>
+      <th class="gold-h" style="width:20%">Gold<br><span style="font-weight:400">+$29 / day</span></th>
+      <th class="plat-h" style="width:20%">Platinum<br><span style="font-weight:400">+$46 / day</span></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="cat-row"><td colspan="4">Core Protection</td></tr>
+    <tr>
+      <td>Collision Damage Waiver (CDW)</td>
+      <td><span class="chk">✓</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Super Collision Damage Waiver</td>
+      <td><span class="chk">✓</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Third Party Liability (TPL)</td>
+      <td><span class="chk">✓</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Theft Protection</td>
+      <td><span class="chk">✓</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Unlimited Mileage</td>
+      <td><span class="chk">✓</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+
+    <tr class="cat-row"><td colspan="4">Excess & Liability</td></tr>
+    <tr>
+      <td>Excess Liability</td>
+      <td><span class="exc">$1,153 excess</span></td>
+      <td class="gold-col"><span class="zero">$0</span></td>
+      <td class="plat-col"><span class="zero">$0</span></td>
+    </tr>
+    <tr>
+      <td>Gravel Protection Liability</td>
+      <td><span class="exc">$288 excess</span></td>
+      <td class="gold-col"><span class="zero">$0</span></td>
+      <td class="plat-col"><span class="zero">$0</span></td>
+    </tr>
+    <tr>
+      <td>Zero Excess Insurance</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+
+    <tr class="cat-row"><td colspan="4">Iceland-Specific Coverage</td></tr>
+    <tr>
+      <td>Sand &amp; Ash Protection ⚠️</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="cross">✗</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Tire Insurance</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="cross">✗</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+
+    <tr class="cat-row"><td colspan="4">Convenience</td></tr>
+    <tr>
+      <td>Debit Card Accepted</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Self-Service Option</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="chk">✓</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Free Extra Driver</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="cross">✗</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Free WiFi Device</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="cross">✗</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+    <tr>
+      <td>Priority Pickup &amp; Drop-off</td>
+      <td><span class="cross">✗</span></td>
+      <td class="gold-col"><span class="cross">✗</span></td>
+      <td class="plat-col"><span class="chk">✓</span></td>
+    </tr>
+
+    <tr class="price-row">
+      <td>Insurance cost (3 days)</td>
+      <td>$0</td>
+      <td class="gold-col">$87</td>
+      <td class="plat-col">$139</td>
+    </tr>
+    <tr class="price-row">
+      <td><strong>WRANGLER TOTAL (base $981 + 1-way $58)</strong></td>
+      <td>$1,039</td>
+      <td class="gold-col">$1,125</td>
+      <td class="plat-col">$1,177</td>
+    </tr>
+    <tr class="price-row">
+      <td>Per person (÷ 4)</td>
+      <td>$260 / ~2,700 SEK</td>
+      <td class="gold-col">$281 / ~2,930 SEK</td>
+      <td class="plat-col">$294 / ~3,060 SEK</td>
+    </tr>
+  </tbody>
+</table>
+
 <div class="verdict">
-  <h2>🎯 Verdict for your trip (TUE–FRI, 4 days)</h2>
-  <div class="vi"><span class="vl">Best overall:</span><span><strong>Jeep Wrangler Rubicon @ Go Car Rental</strong> — handles F225/F208 to Landmannalaugar with confidence, looks amazing in Iceland photos, total cost ~1 640–2 090 SEK per person including fuel. The sweet spot between cool factor, capability, and price.</span></div>
-  <div class="vi"><span class="vl">Best value:</span><span><strong>Dacia Duster @ Lotus</strong> with Platinum insurance (code LOTUSD5). Proven on your exact route, river crossing covered. Total ~680–830 SEK per person. You just won't love the car itself.</span></div>
-  <div class="vi"><span class="vl">Dark horse pick:</span><span><strong>Toyota Hilux @ Lotus</strong> — same price bracket as Wrangler but more rugged/workhorse than sexy. Great for Landmannalaugar specifically. Pickup bed is actually useful for wet/muddy gear after hikes.</span></div>
-  <div class="vi"><span class="vl">Premium splurge:</span><span><strong>Land Rover Defender @ Blue Car</strong> — if you want the coolest car that's also the most comfortable. ~2 100–2 800 SEK per person. Big jump in price but zero compromises.</span></div>
-  <div class="vi"><span class="vl">Insurance note:</span><span>For Landmannalaugar via F225 you need gravel + F-road coverage. Lotus Platinum is unique in Iceland for covering river crossing engine damage. If going Wrangler or Defender via Go Car or Blue Car, explicitly confirm F-road and river coverage before booking.</span></div>
-  <div class="vi"><span class="vl">2026 road tax:</span><span>Iceland introduced a km-based road tax in 2026 (~7–8 ISK/km). At 850 km that's ~6 000–7 000 ISK (~55–65 €) extra — some providers include it in the price, others bill separately. Ask when booking.</span></div>
-  <p class="footer-note">All prices are estimates based on publicly available 2026 data. 4-day September shoulder-season rates will be lower than July–August peak. Actual prices vary by availability and insurance package chosen. Currency conversion used: 1€ ≈ 11 SEK.</p>
+  <h3>🎯 Final recommendation</h3>
+  <div class="vi"><span class="vl">Best overall:</span><span><strong>Jeep Wrangler + Gold insurance @ Go Car</strong> — $1,125 all-in for 3 days, $281/person. Gravel covered, zero excess, F-roads confirmed, looks great. Book directly at gocarrental.is.</span></div>
+  <div class="vi"><span class="vl">Best value surprise:</span><span><strong>Volvo XC90 @ Saga (Northbound)</strong> — only SEK 6,806 (~$654) with CDW/TPL/TP already included. Cheapest premium live price found. Good for comfort-first if F-road capability isn't top priority.</span></div>
+  <div class="vi"><span class="vl">Gold vs Platinum:</span><span>Gold is the sweet spot for your trip. Platinum adds sand/ash + tire protection which are nice-to-haves in Iceland, but the $52 difference is worth it for peace of mind given Sep weather and Landmannalaugar volcanic terrain.</span></div>
+  <div class="vi"><span class="vl">⚠️ Note:</span><span>Go Car Silver includes $1,153 excess liability and $288 gravel excess — do NOT go with Silver on F-roads. Gold minimum.</span></div>
+  <p class="footer-note">Live prices from Go Car Rental (gocarrental.is) and Northbound.is, captured March 22, 2026. Prices subject to change. SEK/USD conversion: ~1 USD = 10.4 SEK. Fuel estimates based on 850 km at current Iceland petrol prices (~200 ISK/litre).</p>
 </div>
 
 </body>

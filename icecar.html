@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iceland Car Rental Comparison</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 20px; font-size: 13px; }
+  h1 { font-size: 19px; font-weight: 700; margin-bottom: 3px; }
+  .subtitle { font-size: 12px; color: #666; margin-bottom: 16px; }
+  .badge { display: inline-block; padding: 2px 7px; border-radius: 10px; font-size: 10px; font-weight: 700; white-space: nowrap; margin-top: 4px; }
+  .badge-rec   { background: #d1fae5; color: #065f46; }
+  .badge-cool  { background: #dbeafe; color: #1e40af; }
+  .badge-safe  { background: #fef3c7; color: #92400e; }
+  .badge-val   { background: #f3e8ff; color: #6b21a8; }
+  .badge-prem  { background: #fce7f3; color: #9d174d; }
+  .badge-skip  { background: #fee2e2; color: #991b1b; }
+  .badge-new   { background: #e0f2fe; color: #075985; }
+
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  thead { background: #111; color: white; }
+  th { padding: 9px 10px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.4px; }
+  td { padding: 10px; vertical-align: top; border-bottom: 1px solid #f0f0f0; line-height: 1.5; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafafa; }
+  .row-hl td { background: #fffbeb !important; }
+  .row-hl:hover td { background: #fef3c7 !important; }
+
+  .car-name { font-weight: 700; font-size: 13px; }
+  .car-sub { font-size: 11px; color: #888; margin-top: 1px; }
+  .car-img { width: 100%; height: 72px; object-fit: cover; border-radius: 5px; margin-bottom: 6px; background: #eee; display: block; }
+  .car-img-placeholder { width: 100%; height: 72px; border-radius: 5px; background: #e5e7eb; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 6px; }
+
+  .pro { color: #065f46; }
+  .pro::before { content: "✓ "; font-weight: 700; }
+  .con { color: #991b1b; }
+  .con::before { content: "✗ "; font-weight: 700; }
+  ul { list-style: none; }
+  li { margin-bottom: 2px; font-size: 12px; }
+
+  .price-main { font-weight: 700; font-size: 13px; }
+  .price-sub { font-size: 11px; color: #777; margin-top: 1px; }
+
+  .pp-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 6px 8px; margin-top: 4px; }
+  .pp-main { font-weight: 700; font-size: 14px; color: #065f46; }
+  .pp-label { font-size: 10px; color: #166534; margin-bottom: 2px; }
+  .pp-detail { font-size: 10px; color: #555; margin-top: 3px; }
+
+  .pp-box-skip { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 6px 8px; margin-top: 4px; }
+
+  .froad { text-align: center; font-size: 15px; }
+  .froad-label { font-size: 10px; color: #888; display: block; margin-top: 2px; }
+
+  .section-hdr td { background: #f3f4f6 !important; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: #6b7280; padding: 5px 10px; }
+
+  .verdict { margin-top: 18px; background: white; border-radius: 10px; padding: 14px 18px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .verdict h2 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .vi { display: flex; gap: 10px; margin-bottom: 7px; font-size: 12px; line-height: 1.5; }
+  .vl { font-weight: 700; min-width: 130px; color: #555; flex-shrink: 0; }
+  .footer-note { margin-top: 12px; font-size: 10px; color: #aaa; }
+
+  .provider-tag { font-size: 10px; color: #fff; background: #374151; padding: 1px 6px; border-radius: 8px; margin-top: 3px; display: inline-block; }
+</style>
+</head>
+<body>
+
+<h1>🇮🇸 Iceland Car Rental – September 2026</h1>
+<p class="subtitle">4 people (male, bags) · F-road capable · <strong>4 days TUE 1/9 – FRI 4/9</strong> · KEF pickup → Reykjavík drop-off · ~850 km total (incl. F225/F208 to Landmannalaugar)</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:15%">Car</th>
+      <th style="width:12%">Provider</th>
+      <th style="width:12%">Rental<br><span style="font-weight:400;font-size:10px">4 days, excl. ins.</span></th>
+      <th style="width:10%">Fuel est.<br><span style="font-weight:400;font-size:10px">~850 km</span></th>
+      <th style="width:13%">Cost/person<br><span style="font-weight:400;font-size:10px">rental+fuel ÷ 4</span></th>
+      <th style="width:7%">F-road</th>
+      <th style="width:16%">Pros</th>
+      <th style="width:15%">Cons</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- BUDGET / PRACTICAL -->
+    <tr class="section-hdr"><td colspan="8">💚 BUDGET / PRACTICAL TIER</td></tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2024_Dacia_Duster_TCe_130_front.jpg/320px-2024_Dacia_Duster_TCe_130_front.jpg" alt="Dacia Duster" onerror="this.style.display='none'">
+        <div class="car-name">Dacia Duster 4WD</div>
+        <div class="car-sub">2022–2026 model</div>
+        <span class="badge badge-val">Best value</span>
+      </td>
+      <td>
+        <strong>Lotus</strong><br>
+        <span class="car-sub">LOTUSD5 code</span><br>
+        <span class="provider-tag">Also: Go Car</span>
+      </td>
+      <td>
+        <div class="price-main">~200–260 €</div>
+        <div class="price-sub">≈50–65€/day<br>≈530–690 SEK/day</div>
+      </td>
+      <td>
+        <div class="price-main">~70 €</div>
+        <div class="price-sub">7–8L/100km<br>diesel/petrol</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~680–830 SEK</div>
+          <div class="pp-detail">(200–260€ rental + 70€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">⚠️<span class="froad-label">Easy–mod</span></td>
+      <td><ul>
+        <li class="pro">Cheapest F-road capable</li>
+        <li class="pro">23cm clearance</li>
+        <li class="pro">Lotus Platinum covers river crossing</li>
+        <li class="pro">Unlimited mileage</li>
+        <li class="pro">Tried & tested on Landmannalaugar</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Tight for 4+bags</li>
+        <li class="con">Zero cool factor</li>
+        <li class="con">Manual only at most providers</li>
+        <li class="con">Uncomfortable on longer drives</li>
+      </ul></td>
+    </tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg/320px-2019_Subaru_Forester_2.0i_Premium_in_Crystal_Black_Silica%2C_front_8.29.19.jpg" alt="Subaru Forester" onerror="this.style.display='none'">
+        <div class="car-name">Subaru Forester 4WD</div>
+        <div class="car-sub">Auto AWD</div>
+        <span class="badge badge-new">Also at Lotus</span>
+      </td>
+      <td>
+        <strong>Lotus</strong><br>
+        <span class="car-sub">LOTUSD5 code</span><br>
+        <span class="provider-tag">Go Car too</span>
+      </td>
+      <td>
+        <div class="price-main">~240–300 €</div>
+        <div class="price-sub">≈60–75€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~80 €</div>
+        <div class="price-sub">9–10L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~880–1 050 SEK</div>
+          <div class="pp-detail">(240–300€ rental + 80€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅<span class="froad-label">Mod F-road</span></td>
+      <td><ul>
+        <li class="pro">Automatic – easy highway driving</li>
+        <li class="pro">Roomier than Duster</li>
+        <li class="pro">Comfortable for long stretches</li>
+        <li class="pro">AWD system well-regarded</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Ground clearance varies by model year – verify with Lotus</li>
+        <li class="con">Not as capable as Hilux for river F-roads</li>
+        <li class="con">Still not exciting visually</li>
+      </ul></td>
+    </tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-17%29_01.jpg/320px-2019_Toyota_RAV4_%28AXAH54R%29_GXL_hybrid_wagon_%282021-09-21%29_01.jpg" alt="Toyota RAV4" onerror="this.style.display='none'">
+        <div class="car-name">Toyota RAV4 4WD</div>
+        <div class="car-sub">Petrol / Hybrid</div>
+        <span class="badge badge-new">Blue Car fleet</span>
+      </td>
+      <td>
+        <strong>Blue Car</strong><br>
+        <span class="car-sub">300m from KEF</span><br>
+        <span class="provider-tag">Also: Lotus, Go Car</span>
+      </td>
+      <td>
+        <div class="price-main">~270–340 €</div>
+        <div class="price-sub">≈68–85€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~80–90 €</div>
+        <div class="price-sub">8–9L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~980–1 180 SEK</div>
+          <div class="pp-detail">(270–340€ rental + 85€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅<span class="froad-label">Mod F-road</span></td>
+      <td><ul>
+        <li class="pro">Reliable & well-known</li>
+        <li class="pro">Good space for 4+bags</li>
+        <li class="pro">Keybox pickup at Blue (zero wait)</li>
+        <li class="pro">Hybrid option cuts fuel cost</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Lower clearance than Duster</li>
+        <li class="con">No visual character</li>
+        <li class="con">Not for serious river crossings</li>
+      </ul></td>
+    </tr>
+
+    <!-- SWEET SPOT -->
+    <tr class="section-hdr"><td colspan="8">🔥 SWEET SPOT TIER – best capability + character</td></tr>
+
+    <tr class="row-hl">
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg/320px-2018_Jeep_Wrangler_Rubicon_JL%2C_front_10.26.18.jpg" alt="Jeep Wrangler Rubicon" onerror="this.style.display='none'">
+        <div class="car-name">Jeep Wrangler Rubicon</div>
+        <div class="car-sub">4-door JL / JLU</div>
+        <span class="badge badge-cool">🔥 Instagram pick</span>
+        <span class="badge badge-rec">Recommended</span>
+      </td>
+      <td>
+        <strong>Go Car Rental</strong><br>
+        <span class="car-sub">Shuttle from KEF</span><br>
+        <span class="provider-tag">Also: Geysir, GoCampers</span>
+      </td>
+      <td>
+        <div class="price-main">~480–620 €</div>
+        <div class="price-sub">≈120–155€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~115–130 €</div>
+        <div class="price-sub">12–14L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~1 640–2 090 SEK</div>
+          <div class="pp-detail">(480–620€ rental + 122€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅✅<span class="froad-label">Highlands OK</span></td>
+      <td><ul>
+        <li class="pro">Iconic look, great for Iceland pics</li>
+        <li class="pro">High clearance, serious 4WD</li>
+        <li class="pro">Handles F225/F208 confidently</li>
+        <li class="pro">Fun to drive, memorable</li>
+        <li class="pro">Fits 4 adults (4-door version)</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Thirsty engine</li>
+        <li class="con">Stiff highway ride on long stretches</li>
+        <li class="con">Tight boot — consider roof bag</li>
+        <li class="con">Verify F-road + river insurance explicitly</li>
+      </ul></td>
+    </tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg/320px-2024_Toyota_Hilux_GR_Sport_2.8D_AT_Double_Cab%2C_front_6.19.24.jpg" alt="Toyota Hilux" onerror="this.style.display='none'">
+        <div class="car-name">Toyota Hilux</div>
+        <div class="car-sub">Double Cab 4WD pickup</div>
+        <span class="badge badge-safe">Workhorse pick</span>
+      </td>
+      <td>
+        <strong>Lotus</strong><br>
+        <span class="car-sub">LOTUSD5 code</span><br>
+        <span class="provider-tag">Also: MyCar</span>
+      </td>
+      <td>
+        <div class="price-main">~500–660 €</div>
+        <div class="price-sub">≈125–165€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~100–115 €</div>
+        <div class="price-sub">11–12L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~1 650–2 130 SEK</div>
+          <div class="pp-detail">(500–660€ rental + 107€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅✅<span class="froad-label">Full F-road</span></td>
+      <td><ul>
+        <li class="pro">Excellent ground clearance</li>
+        <li class="pro">Legendary reliability for highlands</li>
+        <li class="pro">Great for Landmannalaugar F-roads</li>
+        <li class="pro">Pickup bed = huge luggage space</li>
+        <li class="pro">Looks rugged and purposeful</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Pickup bed = bags get wet in rain</li>
+        <li class="con">Ride quality rougher than Land Cruiser</li>
+        <li class="con">Not as glamorous as Wrangler</li>
+      </ul></td>
+    </tr>
+
+    <!-- PREMIUM -->
+    <tr class="section-hdr"><td colspan="8">💎 PREMIUM TIER – comfort + serious capability</td></tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg/320px-2022_Toyota_Land_Cruiser_Prado_TX_2.8D_AT_%28150_series%2C_facelift%2C_Zambia%29%2C_front_12.30.22.jpg" alt="Toyota Land Cruiser" onerror="this.style.display='none'">
+        <div class="car-name">Toyota Land Cruiser</div>
+        <div class="car-sub">LC150 / LC250 · 5–7 seat</div>
+        <span class="badge badge-safe">Safest highlands bet</span>
+      </td>
+      <td>
+        <strong>Blue Car</strong><br>
+        <span class="car-sub">LC250 in fleet</span><br>
+        <span class="provider-tag">Also: MyCar, Lotus</span>
+      </td>
+      <td>
+        <div class="price-main">~560–760 €</div>
+        <div class="price-sub">≈140–190€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~105–120 €</div>
+        <div class="price-sub">11–13L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~1 830–2 420 SEK</div>
+          <div class="pp-detail">(560–760€ rental + 112€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅✅✅<span class="froad-label">Any F-road</span></td>
+      <td><ul>
+        <li class="pro">Most comfortable for 4 + all bags</li>
+        <li class="pro">Best highlands performance</li>
+        <li class="pro">Smooth on both highway + F-road</li>
+        <li class="pro">Blue Car LC250 in 2026 fleet</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Looks like every tourist in Iceland</li>
+        <li class="con">Priciest in this tier</li>
+        <li class="con">Overkill for your F-road level</li>
+      </ul></td>
+    </tr>
+
+    <tr>
+      <td>
+        <img class="car-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg/320px-2020_Land_Rover_Defender_110_D240_SE%2C_front_8.7.20.jpg" alt="Land Rover Defender" onerror="this.style.display='none'">
+        <div class="car-name">Land Rover Defender 110</div>
+        <div class="car-sub">D240 / D300 · 5 seat</div>
+        <span class="badge badge-prem">Premium cool</span>
+      </td>
+      <td>
+        <strong>Blue Car</strong><br>
+        <span class="car-sub">In 2026 luxury fleet</span><br>
+        <span class="provider-tag">Also: ISAK 4×4</span>
+      </td>
+      <td>
+        <div class="price-main">~660–900 €</div>
+        <div class="price-sub">≈165–225€/day</div>
+      </td>
+      <td>
+        <div class="price-main">~105–120 €</div>
+        <div class="price-sub">11–13L/100km</div>
+      </td>
+      <td>
+        <div class="pp-box">
+          <div class="pp-label">EST. TOTAL / PERSON</div>
+          <div class="pp-main">~2 120–2 810 SEK</div>
+          <div class="pp-detail">(660–900€ rental + 112€ fuel) ÷ 4 × 11</div>
+        </div>
+      </td>
+      <td class="froad">✅✅✅<span class="froad-label">Any F-road</span></td>
+      <td><ul>
+        <li class="pro">Best looking premium 4x4</li>
+        <li class="pro">Serious capability + comfort</li>
+        <li class="pro">Great interior space + tech</li>
+        <li class="pro">Distinctive look on the road</li>
+      </ul></td>
+      <td><ul>
+        <li class="con">Most expensive option</li>
+        <li class="con">Reliability concerns on old models (newer fleet helps)</li>
+        <li class="con">Big price jump vs Wrangler</li>
+      </ul></td>
+    </tr>
+
+    <!-- SKIP -->
+    <tr class="section-hdr"><td colspan="8">🚫 SKIP – not suitable for your trip</td></tr>
+
+    <tr style="opacity:0.6">
+      <td>
+        <div class="car-img-placeholder">🚙</div>
+        <div class="car-name">Suzuki Jimny</div>
+        <span class="badge badge-skip">Skip – too small</span>
+      </td>
+      <td>Various</td>
+      <td><div class="price-main">~160–200 €</div></td>
+      <td><div class="price-main">~55 €</div></td>
+      <td>
+        <div class="pp-box-skip">
+          <div class="pp-detail" style="font-weight:700">N/A – 4 adults + bags won't fit</div>
+        </div>
+      </td>
+      <td class="froad">⚠️<span class="froad-label">Risky</span></td>
+      <td><ul><li class="pro">Cheap</li></ul></td>
+      <td><ul><li class="con">4 adults + bags: physically impossible</li><li class="con">Not safe on F225 river sections</li></ul></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<div class="verdict">
+  <h2>🎯 Verdict for your trip (TUE–FRI, 4 days)</h2>
+  <div class="vi"><span class="vl">Best overall:</span><span><strong>Jeep Wrangler Rubicon @ Go Car Rental</strong> — handles F225/F208 to Landmannalaugar with confidence, looks amazing in Iceland photos, total cost ~1 640–2 090 SEK per person including fuel. The sweet spot between cool factor, capability, and price.</span></div>
+  <div class="vi"><span class="vl">Best value:</span><span><strong>Dacia Duster @ Lotus</strong> with Platinum insurance (code LOTUSD5). Proven on your exact route, river crossing covered. Total ~680–830 SEK per person. You just won't love the car itself.</span></div>
+  <div class="vi"><span class="vl">Dark horse pick:</span><span><strong>Toyota Hilux @ Lotus</strong> — same price bracket as Wrangler but more rugged/workhorse than sexy. Great for Landmannalaugar specifically. Pickup bed is actually useful for wet/muddy gear after hikes.</span></div>
+  <div class="vi"><span class="vl">Premium splurge:</span><span><strong>Land Rover Defender @ Blue Car</strong> — if you want the coolest car that's also the most comfortable. ~2 100–2 800 SEK per person. Big jump in price but zero compromises.</span></div>
+  <div class="vi"><span class="vl">Insurance note:</span><span>For Landmannalaugar via F225 you need gravel + F-road coverage. Lotus Platinum is unique in Iceland for covering river crossing engine damage. If going Wrangler or Defender via Go Car or Blue Car, explicitly confirm F-road and river coverage before booking.</span></div>
+  <div class="vi"><span class="vl">2026 road tax:</span><span>Iceland introduced a km-based road tax in 2026 (~7–8 ISK/km). At 850 km that's ~6 000–7 000 ISK (~55–65 €) extra — some providers include it in the price, others bill separately. Ask when booking.</span></div>
+  <p class="footer-note">All prices are estimates based on publicly available 2026 data. 4-day September shoulder-season rates will be lower than July–August peak. Actual prices vary by availability and insurance package chosen. Currency conversion used: 1€ ≈ 11 SEK.</p>
+</div>
+
+</body>
+</html>
